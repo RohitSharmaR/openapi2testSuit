@@ -1,0 +1,22 @@
+{
+  "name": "openapi2testsuit",
+  "version": "1.0.0",
+  "description": "The module should create requestData test template [containing tests cases] for given open api defenition",
+  "main": "index.js",
+  "scripts": {
+    "test": "openapi2testsuit"
+  },
+  "keywords": [
+    "swagger templates",
+    "oatts",
+    "automated",
+    "test case genetations ",
+    "tests",
+    "generation"
+  ],
+  "author": "Rohit",
+  "license": "ISC",
+  "dependencies": {
+    "jsonfile": "^5.0.0"
+  }
+}

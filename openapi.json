@@ -1,0 +1,308 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CBMIA B2C APIs for Clarisonic",
+    "version": "1.0.0",
+    "description": "General Guidelines \n1. DO NOT USE \"sandbox\" in path while invoking API from actual application Or from any other test clients\n\n2. OAuth tokens should be cached by client application for the duration indicated in the token response\n\nAvailable Environments\n1. DEV : apidev.lorealcloud.com\n2. QA  : apiqa.lorealcloud.com\n3. PROD: api.lorealcloud.com"
+  },
+  "security": [
+    {
+      "oauth-1": []
+    }
+  ],
+  "paths": {
+    "/cbmia/v1/customers": {
+      "post": {
+        "tags": [
+          "Customer Profile"
+        ],
+        "description": "Create Customer Profile",
+        "parameters": [
+          {
+            "name": "org",
+            "in": "query",
+            "description": "The value defined by Lâ€™OrÃ©al in the form BRAND_COUNTRY",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "***token from auth call sent as Bearer*** This is only used in case of mobile authorization",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerProfile_Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Resource Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerProfile_Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+         
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://apidev.lorealcloud.com/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "oauth-1": {
+        "type": "oauth2",
+        "description": "",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://apidev.lorealcloud.com/sandbox/auth/oauth/v2/token",
+            "scopes": {}
+          }
+        }
+      }
+    },
+    "schemas": {
+      "CreateCustomerProfile_Request": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "externalCustomerId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Customer ID of the source system which is used as the master ID.  This field is mandatory for certain brands\n"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Display Name of the customer which the member would like to be greeted."
+          },
+          "prefix": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Display Name of the customer which the member would like to be greeted."
+          },
+          "firstName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Display Name of the customer which the member would like to be greeted."
+          },
+          "middleName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Middle Name of the customer"
+          },
+          "lastName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Last Name of the customer"
+          },
+          "suffix": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Customer's suffix name if any"
+          },
+          "gender": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Customer's gender"
+          },
+          "maritalStatus": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Marital status of a customer"
+          },
+          "nationality": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nationality of a customer"
+          },
+          "ethnicity": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Ethnicity of a customer"
+          },
+          "businessName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Business name of a customer"
+          },
+          "socialUid": {
+            "type": "string",
+            "minLength": 1,
+            "description": "This is a mandatory value when enrollment type = social. Eg: when the user enrollâ€™ s using Facebook as the primary social provider, then socialUID is \"24235235345\""
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Email ID of the customer used during member enrollment"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Phone number of the customer used during enrollment/registration"
+          },
+          "brand": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Brand associated with the customer for which they are being registered. This is a mandatory value which is standard 3 characters to define all the Lâ€™OrÃ©al Brands uniquely."
+          },
+          "enrollmentType": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Enrollment type used during the customer registration process Possible values are; email,social"
+          },
+          "primarySocialProvider": {
+            "type": "string",
+            "minLength": 1,
+            "description": "This is mandatory when enrollment type is \"social\". Example values are â€¢  facebook â€¢  twitter â€¢  instagram â€¢  pinterest"
+          },
+          "enrolledAt": {
+            "type": "string",
+            "minLength": 1,
+            "description": "This is mandatory for the source systems for registration where dateTime in ISO-8601 format used during customer registration."
+          },
+          "expirationDate": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Expiration of the customer status (if any)"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Status of the customer Example values active inactive"
+          },
+          "birthdate": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Birth date of the customer"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Date"
+          },
+          "monthOfBirth": {
+            "type": "string",
+            "minLength": 1,
+            "description": "month"
+          },
+          "yearOfBirth": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Year"
+          },
+          "profileUrl": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Profile URL of the customer which contains the display image of the customer"
+          },
+          "region": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Region of the program to which the customer registration is used. This should be the standard 3 character ISO country code. Example values; USA CAN"
+          },
+          "channel": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Engagement channel Example values; web mobile instore"
+          },
+          "subChannel": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Additional details about the channel, such as store ID, store location, website section etc."
+          },
+          "subChannelDetail": {
+            "type": "string",
+            "minLength": 1,
+            "description": "additional details about the sub_channel, such as Sales Rep or Employee ID Number"
+          },
+          "customData": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Custom attribute which can be used store log texts."
+          },
+          "customAttribute": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Custom attribute which can be used store log texts."
+          },
+          "sourceSystem": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Source system of the calling application. Example values; Demandware"
+          },
+          "createdBy": {
+            "type": "string",
+            "minLength": 1,
+            "description": "This is audit column. It stores the created by information of the source system"
+          },
+          "createdOn": {
+            "type": "string",
+            "minLength": 1,
+            "description": "This is audit column. It stores the created at timestamp information of the source system. This should be in  ISO-8601 format"
+          }
+        },
+        "required": [
+          "lastName",
+          "email",
+          "brand",
+          "enrollmentType",
+          "enrolledAt",
+          "status",
+          "region",
+          "sourceSystem",
+          "createdBy",
+          "createdOn"
+        ],
+        "example": "{\"externalCustomerId\":\"CLA1254\",\"displayName\":\"Jazz\",\"prefix\":\"Dr.\",\"firstName\":\"Jazmin\",\"middleName\":\"sunt\",\"lastName\":\"Rippin\",\"suffix\":\"I\",\"gender\":\"F\",\"maritalStatus\":\"Married\",\"nationality\":\"Germany\",\"ethnicity\":\"German\",\"businessName\":\"Bode Inc\",\"socialUid\":\"0h9asf293cwq9f92e\",\"email\":\"kkling@example.org\",\"mobilePhone\":\"(109)708-2014x623\",\"brand\":\"CLA\",\"enrollmentType\":\"social\",\"primarySocialProvider\":\"facebook\",\"enrolledAt\":\"2018-06-04T01:53:43.000Z\",\"expirationDate\":\"2018-06-04T01:53:43.000Z\",\"status\":\"active\",\"birthdate\":\"1979-06-23\",\"dateOfBirth\":\"23\",\"monthOfBirth\":\"06\",\"yearOfBirth\":\"1979\",\"profileUrl\":\"http://www.senger.com/\",\"region\":\"USA\",\"channel\":\"social media\",\"subChannel\":\"fb\",\"subChannelDetail\":\"facebook\",\"customData\":\"abczyz\",\"customAttribute\":\"abczyz\",\"sourceSystem\":\"mobile\",\"createdBy\":\"Rowan\",\"createdOn\":\"2018-06-04T01:53:43.000Z\"}"
+      },
+      "CreateCustomerProfile_Response": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "number",
+            "description": "Customer ID created after registering the customer."
+          },
+          "externalCustomerId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Customer ID of the source system which is used as the master ID.This field is mandatory for certain brands"
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Email ID of the customer used during member enrollment"
+          }
+        },
+        "example": "{ \"customerId\": 1605, \"externalCustomerId\": \"CLA1254\", \"email\": \"kkling@example.org\"}"
+      }
+    }
+  }
+}
