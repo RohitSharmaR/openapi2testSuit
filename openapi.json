@@ -61,7 +61,7 @@
           "400": {
             "description": "Bad Request"
           },
-         
+
           "500": {
             "description": "Server Error"
           }

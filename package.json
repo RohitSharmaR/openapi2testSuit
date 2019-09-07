@@ -17,6 +17,11 @@
   "author": "Rohit",
   "license": "ISC",
   "dependencies": {
+    "json-from-schema": "^1.11.0",
+    "json-schema-faker": "^0.5.0-rc17",
     "jsonfile": "^5.0.0"
+  },
+  "devDependencies": {
+    "json-schema-generator": "^2.0.6"
   }
 }
